@@ -19,3 +19,4 @@ print('{}\n{}\n{}'.format(secret,recover,secret==recover))
 
 ## Reference
 + [Lagrange Interpolation](https://zhuanlan.zhihu.com/p/85200990)
++ [shea256-secret-sharing](https://github.com/shea256/secret-sharing.git)
