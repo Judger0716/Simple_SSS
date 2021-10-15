@@ -1,5 +1,5 @@
 '''
-Shamir Secret Sharing Scheme on GF(2^64)
+Shamir Secret Sharing Scheme on GF(2^n)
 '''
 
 from utilitybelt import secure_randint as randint
@@ -9,6 +9,7 @@ from decimal import Decimal
 def secret_int_to_points(secret,threshold,num):
     coefficients = [secret]
     for i in range(threshold-1):
+        # Take GF(2^16) as an example
         coefficients.append(randint(0,2**16-1))
     points = []
     for x_value in range(1,num+1):
