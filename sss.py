@@ -9,7 +9,7 @@ from decimal import Decimal
 def secret_int_to_points(secret,threshold,num):
     coefficients = [secret]
     for i in range(threshold-1):
-        coefficients.append(randint(0,2**64-1))
+        coefficients.append(randint(0,2**16-1))
     points = []
     for x_value in range(1,num+1):
         cur_point = [x_value]
@@ -33,16 +33,20 @@ def lagrange_interpolation(points,threshold):
                 continue
             else:
                 multi_sum *= Decimal(0-points[j][0])/Decimal(points[i][0]-points[j][0])
+        #print(multi_sum, points[i][1])
         zero_coefficient += multi_sum*points[i][1]
     #print('{:.2f}'.format(zero_coefficient))
     secret = zero_coefficient
     return round(secret)
 
-# Secret
-secret = 76581712835468712541234
+# Secret, 2^64=18446744073709551616
+secret = 18273912
 # Shares
 points = secret_int_to_points(secret,3,4)
+#print(points)
+for p in points:
+    print(p[1])
 # Recover
 recover = lagrange_interpolation(points,3)
 # Check
-print('{}\n{}\n{}'.format(secret,recover,secret==recover))
+print('\nCheck:\n{}\n{}\n{}'.format(secret,recover,secret==recover))
