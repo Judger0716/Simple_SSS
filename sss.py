@@ -10,7 +10,7 @@ def secret_int_to_points(secret,threshold,num):
     coefficients = [secret]
     for i in range(threshold-1):
         # Take GF(2^16) as an example
-        coefficients.append(randint(0,2**16-1))
+        coefficients.append(randint(0,2**32-1))
     points = []
     for x_value in range(1,num+1):
         cur_point = [x_value]
@@ -41,12 +41,15 @@ def lagrange_interpolation(points,threshold):
     return round(secret)
 
 # Secret, 2^64=18446744073709551616
-secret = 18273912
+secret = 1234567890123 # digit comparison 
+secret = 1925846290930 # real secret
 # Shares
-points = secret_int_to_points(secret,3,4)
+points = secret_int_to_points(secret,2,3)
 #print(points)
+print('Put in terminal:')
 for p in points:
-    print(p[1])
+    #print('{} {}'.format(p[0],p[1]))
+    print('echo {} {} > Player-Data/Input-P{}-0'.format(p[0],p[1],p[0]-1))
 # Recover
 recover = lagrange_interpolation(points,3)
 # Check
