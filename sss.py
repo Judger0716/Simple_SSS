@@ -9,7 +9,7 @@ from decimal import Decimal
 def secret_int_to_points(secret,threshold,num):
     coefficients = [secret]
     for i in range(threshold-1):
-        # Take GF(2^16) as an example
+        # Take GF(2^32) as an example
         coefficients.append(randint(0,2**32-1))
     points = []
     for x_value in range(1,num+1):
@@ -40,9 +40,10 @@ def lagrange_interpolation(points,threshold):
     secret = zero_coefficient
     return round(secret)
 
+
 # Secret, 2^64=18446744073709551616
 secret = 1234567890123 # digit comparison 
-secret = 1925846290930 # real secret
+secret = 1234567890123 # real secret
 # Shares
 points = secret_int_to_points(secret,2,3)
 #print(points)
@@ -54,3 +55,39 @@ for p in points:
 recover = lagrange_interpolation(points,3)
 # Check
 print('\nCheck:\n{}\n{}\n{}'.format(secret,recover,secret==recover))
+
+'''
+# linear addition test
+s1 = 123
+s2 = 456
+p1 = secret_int_to_points(s1,2,3)
+for p in p1:
+    print('{} {}'.format(p[0],p[1]))
+p2 = secret_int_to_points(s2,2,3)
+for p in p2:
+    print('{} {}'.format(p[0],p[1]))
+for i in range(len(p1)):
+    p1[i][1] -= p2[i][1]
+for p in p1:
+    print('{} {}'.format(p[0],p[1]))
+recover = lagrange_interpolation(p1,3)
+print('\nCheck:\n{}\n{}\n{}'.format(s1-s2,recover,(s1-s2)==recover))
+'''
+
+'''
+# linear multiplication test
+s1 = 123
+s2 = 456
+p1 = secret_int_to_points(s1,2,3)
+for p in p1:
+    print('{} {}'.format(p[0],p[1]))
+p2 = secret_int_to_points(s2,2,3)
+for p in p2:
+    print('{} {}'.format(p[0],p[1]))
+for i in range(len(p1)):
+    p1[i][1] *= p2[i][1]
+for p in p1:
+    print('{} {}'.format(p[0],p[1]))
+recover = lagrange_interpolation(p1,3)
+print('\nCheck:\n{}\n{}\n{}'.format(s1*s2,recover,(s1*s2)==recover))
+'''
