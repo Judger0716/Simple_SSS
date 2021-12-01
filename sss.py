@@ -45,7 +45,7 @@ def lagrange_interpolation(points,threshold):
 secret = 1234567890123 # digit comparison 
 secret = 1234567890123 # real secret
 # Shares
-points = secret_int_to_points(secret,2,3)
+points = secret_int_to_points(secret,3,4)
 #print(points)
 print('Put in terminal:')
 for p in points:
