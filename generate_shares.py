@@ -7,7 +7,7 @@ from decimal import Decimal
 from sss import secret_int_to_points,lagrange_interpolation
 
 n = int(input('secret number:')) # Secret number
-player_number = 4
+player_number = 3
 threshold = 3
 
 # shares[i] is all the shares player i get
@@ -29,3 +29,9 @@ for i in range(len(shares)):
     for j in range(len(shares[i])):
         print(shares[i][j],end=' ')
     print('> Player-Data/Input-P{}-0'.format(i))
+
+# Generate amount
+print('echo',end=' ')
+for i in range(n):
+    print(randint(0,1000),end=' ')
+print('> Programs/Public-Input/match_order')
