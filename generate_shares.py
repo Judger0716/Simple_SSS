@@ -3,8 +3,7 @@ Generate multiple shares using Simple_SSS
 '''
 
 from utilitybelt import secure_randint as randint
-from decimal import Decimal
-from sss import secret_int_to_points,lagrange_interpolation
+from sss import secret_int_to_points
 
 n = int(input('secret number:')) # Secret number
 player_number = 3
