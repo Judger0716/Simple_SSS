@@ -16,7 +16,8 @@ for i in range(player_number):
 
 # Input secrets
 for i in range(n):
-    secret_i = int(input('input a secret:'))
+    #secret_i = int(input('input a secret:')) # manual input
+    secret_i = randint(100,10000) # automatic input
     shares_i = secret_int_to_points(secret_i,threshold,player_number)
     for j in range(len(shares_i)):
         shares[j].append(shares_i[j][0])
@@ -32,5 +33,5 @@ for i in range(len(shares)):
 # Generate amount
 print('echo',end=' ')
 for i in range(n):
-    print(randint(0,1000),end=' ')
+    print(randint(100,10000),end=' ')
 print('> Programs/Public-Input/match_order')
