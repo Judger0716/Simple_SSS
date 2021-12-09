@@ -1,9 +1,11 @@
-'''
-Shamir Secret Sharing Scheme on GF(2^n)
-'''
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# Shamir Secret Sharing Scheme on GF(2^n)
 
 from utilitybelt import secure_randint as randint
 from decimal import Decimal
+import sys
 #import random
 
 def secret_int_to_points(secret,threshold,num):
@@ -40,7 +42,11 @@ def lagrange_interpolation(points,threshold):
     secret = zero_coefficient
     return round(secret)
 
+points = secret_int_to_points(int(sys.argv[1]),int(sys.argv[2]),int(sys.argv[3]))
+print(points)
 
+'''
+# test
 # Secret, 2^64=18446744073709551616
 secret = 1234567890123 # digit comparison 
 secret = 1234567890123 # real secret
@@ -55,39 +61,4 @@ for p in points:
 recover = lagrange_interpolation(points,3)
 # Check
 print('\nCheck:\n{}\n{}\n{}'.format(secret,recover,secret==recover))
-
-'''
-# linear addition test
-s1 = 123
-s2 = 456
-p1 = secret_int_to_points(s1,2,3)
-for p in p1:
-    print('{} {}'.format(p[0],p[1]))
-p2 = secret_int_to_points(s2,2,3)
-for p in p2:
-    print('{} {}'.format(p[0],p[1]))
-for i in range(len(p1)):
-    p1[i][1] -= p2[i][1]
-for p in p1:
-    print('{} {}'.format(p[0],p[1]))
-recover = lagrange_interpolation(p1,3)
-print('\nCheck:\n{}\n{}\n{}'.format(s1-s2,recover,(s1-s2)==recover))
-'''
-
-'''
-# linear multiplication test
-s1 = 123
-s2 = 456
-p1 = secret_int_to_points(s1,2,3)
-for p in p1:
-    print('{} {}'.format(p[0],p[1]))
-p2 = secret_int_to_points(s2,2,3)
-for p in p2:
-    print('{} {}'.format(p[0],p[1]))
-for i in range(len(p1)):
-    p1[i][1] *= p2[i][1]
-for p in p1:
-    print('{} {}'.format(p[0],p[1]))
-recover = lagrange_interpolation(p1,3)
-print('\nCheck:\n{}\n{}\n{}'.format(s1*s2,recover,(s1*s2)==recover))
 '''
