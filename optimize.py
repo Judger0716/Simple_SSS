@@ -35,8 +35,18 @@ for i in range(len(shares)):
 # Generate amount
 print('echo',end=' ')
 buy_num = randint(round(n/4),round(n/2))
+amount = []
 for i in range(n):
-    print(randint(100,10000),end=' ')
-print('> Programs/Public-Input/match_order-'+str(buy_num)+'-'+str(n-buy_num))
-print('./compile.py -M match_order '+str(buy_num)+' '+str(n-buy_num))
-print('./shamir-party.x 0 '+'match_order-'+str(buy_num)+'-'+str(n-buy_num)+' & '+'./shamir-party.x 1 '+'match_order-'+str(buy_num)+'-'+str(n-buy_num)+' & '+'./shamir-party.x 2 '+'match_order-'+str(buy_num)+'-'+str(n-buy_num))
+    amount.append(randint(100,1000))
+    print(amount[i],end=' ')
+print('> Programs/Public-Input/optimize-'+str(buy_num)+'-'+str(n-buy_num))
+print('./compile.py -M optimize '+str(buy_num)+' '+str(n-buy_num))
+print('./shamir-party.x 0 '+'optimize-'+str(buy_num)+'-'+str(n-buy_num)+' & '+'./shamir-party.x 1 '+'optimize-'+str(buy_num)+'-'+str(n-buy_num)+' & '+'./shamir-party.x 2 '+'optimize-'+str(buy_num)+'-'+str(n-buy_num))
+
+buy_sum = 0
+for i in range(buy_num):
+    buy_sum += amount[i]
+sell_sum = 0
+for i in range(buy_num,len(amount)):
+    sell_sum += amount[i]
+print('sell: ',sell_sum,'| buy: ',buy_sum)
